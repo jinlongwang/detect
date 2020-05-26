@@ -1,0 +1,18 @@
+addr: 0.0.0.0
+http_port: 8000
+rpc_port: 3000
+mysql: connectString
+endpoint:
+storage:
+  falcon:
+    enable: true
+    address: "transfer"
+
+  db:
+    enable: true
+
+log:
+  level: debug
+  formatter: text
+  out: stdout
+  file: "master.log"

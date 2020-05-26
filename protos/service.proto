@@ -1,0 +1,54 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+package protos;
+
+enum Type {
+    URL = 0;
+    TCP = 1;
+    DNS = 2;
+    HOST_DOWN = 3;
+}
+
+message Task {
+    int64 id = 1;
+    Type type = 2;
+    int64 status = 3;
+    string context = 4;
+    int64 interval = 5;
+}
+
+message TaskListResponse {
+    bool code = 1;
+    repeated Task tasks = 2;
+}
+
+message TaskResultRequest {
+    int32 task_id = 1;
+}
+
+message Metric {
+    string metric = 1;
+    float  value = 2;
+    string type = 3;
+    int64  timestamp = 4;
+    int64  step = 5;
+    map<string, string> tags = 6;
+    int64 strategy_id = 7;
+}
+
+message Metrics {
+    repeated Metric metrics = 1;
+}
+
+message TaskResultResponse {
+    bool code = 1;
+}
+
+message Empty {}
+
+service StrategyService {
+    rpc ListStrategy(Empty) returns (TaskListResponse){}
+
+    rpc SendTaskResult(Metrics) returns (TaskResultResponse){}
+}
+
